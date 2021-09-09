@@ -1,14 +1,21 @@
+import * as fs from "fs";
 import * as Multer from "multer";
 import { nanoid } from "nanoid";
 import * as mime from "mime-types";
 
 import { createMulterFieldsFromString } from "./helpers";
 
+const filesDirectory = "./files";
+
+if (!fs.existsSync(filesDirectory)){
+	fs.mkdirSync(filesDirectory);
+}
+
 const fileFields: Multer.Field[] = createMulterFieldsFromString(globalThis.ATTACHMENT_FIELDS);
 
 const storage = Multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, "./files");
+		cb(null, filesDirectory);
 	},
 	filename: (req, file, cb) => {
 		// Generate a unique name (to avoid collisions)
