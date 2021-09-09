@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "es2020"],
+		"module": "commonjs",
+		"noImplicitReturns": true,
+		"outDir": "lib",
+		"sourceMap": true,
+		"target": "es2020",
+		"typeRoots": ["node_modules/@types"],
+		"types": ["node", "src/global.d.ts"]
+	},
+	"compileOnSave": true,
+	"include": [
+		"src"
+	]
+}
