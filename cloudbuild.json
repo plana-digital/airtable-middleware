@@ -24,7 +24,6 @@
 			"id": "deploy",
 			"name": "gcr.io/cloud-builders/gcloud",
 			"args": [
-				"gcloud",
 				"run",
 				"deploy",
 				"${_SERVICE_NAME}",
