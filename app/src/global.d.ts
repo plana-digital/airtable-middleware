@@ -1,3 +1,5 @@
+export {};
+
 declare global {
 	var PORT: number;
 	var TEST: boolean;
