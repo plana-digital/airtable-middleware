@@ -4,6 +4,6 @@ export class AttachmentField {
 
 	constructor(filename: string, filePath: string) {
 		this.filename = filename;
-		this.url = new URL(`${globalThis.ORIGIN}/${filePath}`).toString();
+		this.url = `${globalThis.ORIGIN}/${filePath}`;
 	}
 }
