@@ -56,7 +56,7 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 
 				console.log(`Created record with ID ${record.id} successfully!`);
 
-				res.status(201).send({ "ok": true });
+				res.status(201).send({ "ok": true, body: { recordId: record.id } });
 			}
 		});
 	} else {
