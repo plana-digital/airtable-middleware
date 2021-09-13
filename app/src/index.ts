@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as Express from "express";
+import * as cors from "cors";
 import * as Airtable from "airtable";
 
 import "./global";
@@ -14,6 +15,9 @@ const app = Express();
 // This will tell Express to to determine the connection and the IP address of the client
 // via X-Forwarded-* headers, usually needed when it's behind a front-facing proxy.
 app.enable("trust proxy");
+
+// Enable CORS for all requests
+app.use("*", cors())
 
 // Start the express server
 app.listen(globalThis.PORT, () => {
