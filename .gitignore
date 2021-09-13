@@ -69,3 +69,6 @@ lib/
 
 # App specific
 app/files
+
+# File history
+.history
