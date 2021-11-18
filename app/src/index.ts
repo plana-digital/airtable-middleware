@@ -2,6 +2,7 @@ import * as path from "path";
 import * as Express from "express";
 import * as cors from "cors";
 import * as Airtable from "airtable";
+import * as useragent from "express-useragent";
 
 import "./global";
 import { addFilesToFields, convertFieldsIntoPrimitives } from "./helpers";
@@ -12,12 +13,15 @@ const airtableBase = new Airtable({ apiKey: globalThis.AIRTABLE_API_KEY }).base(
 // Create express server
 const app = Express();
 
-// This will tell Express to to determine the connection and the IP address of the client
+// This will tell Express to determine the connection and the IP address of the client
 // via X-Forwarded-* headers, usually needed when it's behind a front-facing proxy.
 app.enable("trust proxy");
 
 // Enable CORS for all requests
 app.use("*", cors())
+
+// Enable `useragent`
+app.use(useragent.express())
 
 // Start the express server
 app.listen(globalThis.PORT, () => {
@@ -48,6 +52,7 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 	console.log("Request received.");
 
 	console.log(`IP: ${req.ip}`);
+	console.log(`User Agent: ${JSON.stringify(req.useragent)}`);
 
 	// Set origin variable to later be used.
 	globalThis.ORIGIN = `${req.protocol}://${req.get("host")}`;

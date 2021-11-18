@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@types/express-useragent": "^1.0.1"
+  }
+}
