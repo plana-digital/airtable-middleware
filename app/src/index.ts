@@ -47,6 +47,8 @@ app.use("/files", Express.static(path.join(__dirname, "../files")));
 app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => {
 	console.log("Request received.");
 
+	console.log(`IP: ${req.ip}`);
+
 	// Set origin variable to later be used.
 	globalThis.ORIGIN = `${req.protocol}://${req.get("host")}`;
 
