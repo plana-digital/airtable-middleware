@@ -24,15 +24,20 @@ app.listen(globalThis.PORT, () => {
 	console.log(`Server started at http://localhost:${globalThis.PORT}`);
 });
 
-
+// Endpoint for pinging health of the application
 app.get("/.well-known/healthcheck.json", (req: Express.Request, res: Express.Response) => {
-	const packageJson = require(path.join(__dirname, "../package.json"))
+	const packageJson = require(path.join(__dirname, "../package.json"));
 
 	res.send({
-		"ok": true,
-		"date": new Date(),
-		"version": packageJson.version
-	})
+		ok: true,
+		payload: {
+			type: "HEALTHY",
+			data: {
+				date: new Date(),
+				version: packageJson.version
+			}
+		}
+	});
 })
 
 // Expose directory of files to allow Airtable to create attachments.
@@ -61,15 +66,35 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 			if (error) {
 				console.error("Couldn't create record. Error:", error);
 
-				res.status(500).send({ "ok": false, "body": error });
+				res.status(500).send({
+					ok: false,
+					payload: {
+						type: "ERROR",
+						data: error
+					}
+				});
 			} else if (record) {
 
 				console.log(`Created record with ID ${record.id} successfully!`);
 
-				res.status(201).send({ "ok": true, body: { recordId: record.id } });
+				res.status(201).send({
+					ok: true,
+					payload: {
+						type: "SUCCESSFULY_RECORDED_IN_AIRTABLE",
+						data: {
+							record_id: record.id
+						}
+					}
+				});
 			}
 		});
 	} else {
-		res.send("ok");
+		res.send({
+			ok: true,
+			payload: {
+				type: "TEST",
+				data: true
+			}
+		});
 	}
 });
