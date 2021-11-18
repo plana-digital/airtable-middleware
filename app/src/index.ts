@@ -65,6 +65,8 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 
 	// Check if request has body to send to Airtable.
 	if (body && Object.keys(body).length === 0) {
+		console.log("Body doesn't have fields.");
+
 		res.status(400).send({
 			ok: false,
 			payload: {
