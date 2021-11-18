@@ -56,6 +56,15 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 	const files = req.files;
 	console.debug(`Files: ${JSON.stringify(files)}`);
 
+	if (body && Object.keys(body).length === 0) {
+		res.status(400).send({
+			ok: false,
+			payload: {
+				type: "BODY_MUST_HAVE_FIELDS"
+			}
+		})
+	}
+
 	let fields = addFilesToFields(files, body);
 	fields = convertFieldsIntoPrimitives(fields);
 
