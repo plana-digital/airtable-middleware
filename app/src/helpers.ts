@@ -7,26 +7,15 @@ import { AttachmentField } from "./attachment-field.class";
  */
 export function addFilesToFields(files: Express.Request["files"], fields: any): any {
 	if (files) {
-		// if (Array.isArray(files)) {
-		// 	const fieldName = files[0].fieldname;
+		for (let file in files) {
+			const fieldName = file;
 
-		// 	const fieldValue = files.map(file => {
-		// 		return new AttachmentField(file.originalname, file.filename);
-		// 	});
+			const fieldValue = files[fieldName].map((file: Express.Request["file"]) => {
+				return new AttachmentField(file.originalname, file.path);
+			});
 
-		// 	fields = {...fields, [fieldName]: fieldValue };
-
-		// } else {
-			for (let file in files) {
-				const fieldName = file;
-
-				const fieldValue = files[fieldName].map(file => {
-					return new AttachmentField(file.originalname, file.path);
-				});
-
-				fields = { ...fields, [fieldName]: fieldValue };
-			}
-		// }
+			fields = { ...fields, [fieldName]: fieldValue };
+		}
 	}
 
 	return fields;
