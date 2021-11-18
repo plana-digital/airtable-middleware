@@ -25,6 +25,16 @@ app.listen(globalThis.PORT, () => {
 });
 
 
+app.get("/.well-known/healthcheck.json", (req: Express.Request, res: Express.Response) => {
+	const packageJson = require(path.join(__dirname, "../package.json"))
+
+	res.send({
+		"ok": true,
+		"date": new Date(),
+		"version": packageJson.version
+	})
+})
+
 // Expose directory of files to allow Airtable to create attachments.
 app.use("/files", Express.static(path.join(__dirname, "../files")));
 
