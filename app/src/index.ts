@@ -70,6 +70,8 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 				type: "BODY_MUST_HAVE_FIELDS"
 			}
 		})
+
+		return;
 	}
 
 	let fields = addFilesToFields(files, body);
@@ -89,8 +91,9 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 						data: error
 					}
 				});
-			} else if (record) {
 
+				return;
+			} else if (record) {
 				console.log(`Created record with ID ${record.id} successfully!`);
 
 				res.status(201).send({
@@ -102,6 +105,8 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 						}
 					}
 				});
+
+				return;
 			}
 		});
 	} else {
@@ -112,5 +117,7 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 				data: true
 			}
 		});
+
+		return;
 	}
 });
