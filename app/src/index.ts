@@ -63,6 +63,7 @@ app.post("/submit", multerObj, (req: Express.Request, res: Express.Response) => 
 	const files = req.files;
 	console.debug(`Files: ${JSON.stringify(files)}`);
 
+	// Check if request has body to send to Airtable.
 	if (body && Object.keys(body).length === 0) {
 		res.status(400).send({
 			ok: false,
